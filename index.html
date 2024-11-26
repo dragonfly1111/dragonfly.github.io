@@ -1,1 +1,122 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://unpkg.com/leafer-ui@1.0.9/dist/web.min.js"></script>
+<!--  <script src="https://unpkg.com/@leafer-in/arrow@1.0.9/dist/arrow.min.js"></script>-->
+  <script src="https://unpkg.com/@leafer-in/editor@1.0.9/dist/editor.min.js"></script>
+  <script src="./dist/index.js"></script>
+</head>
+<body>
+  <div>
+    <div id="mainBox" style="width: 800vw; height: 800vh"></div>
+  </div>
+</body>
+</html>
+<script type="module">
+  const { App, Star, Ellipse, Rect, Polygon, Path } = LeaferUI // 全局变量，包含 leafer-ui 的所有功能
+  console.log(LeaferX)
+  // 生成随机颜色
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF'
+    let color = '#'
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)]
+    }
+    return color
+  }
+  const randomNumber = () => {
+    return Math.random() * (300 - 50) + 50
+  }
+  const height = window.innerHeight
+  const app = new App({
+    view: 'mainBox',
+    ground: { type: 'draw' },
+    tree: {},
+    editor: {},
+    sky: { type: 'draw' }
+  })
+  const star = new Star({
+    width: 100,
+    height: 100,
+    x: 150,
+    y: height / 2 - 50,
+    corners: 3,
+    innerRadius: 0.15,
+    editable: true,
+    fill: 'rgb(50,205,121)'
+  })
+  const ell = new Ellipse({
+    width: 100,
+    height: 100,
+    x: 300,
+    y: height / 2 - 50,
+    fill: getRandomColor(),
+    editable: true,
+  })
+  const react = new Rect({
+    width: 100,
+    height: 100,
+    x: 450,
+    y: height / 2 - 50,
+    fill: getRandomColor(),
+    editable: true,
+  })
+  const polygon = new Polygon({
+    width: 100,
+    height: 100,
+    x: 600,
+    y: height / 2 - 50,
+    sides: 3,
+    fill: getRandomColor(),
+    editable: true,
+  })
+  const polygon1 = new Polygon({
+    width: 100,
+    height: 100,
+    x: 750,
+    y: height / 2 - 50,
+    points: [10, 90, 10, 10, 50, 70, 90, 10, 90, 90, 90, 90, 10, 90],  // [x,y, x,y ...]
+    curve: true,
+    editable: true,
+    fill: getRandomColor(),
+  })
+  const react1 = new Rect({
+    width: 100,
+    height: 100,
+    x: 950,
+    y: height / 2 - 70,
+    fill: getRandomColor(),
+    editable: true,
+    rotation: 34
+  })
+  app.tree.add(star)
+  app.tree.add(ell)
+  app.tree.add(react)
+  app.tree.add(polygon)
+  app.tree.add(polygon1)
+  app.tree.add(react1)
+
+
+  const referenceLine = new LeaferX.referenceLine.ReferenceLine(app, {
+    showGutter: true,
+    showBg: true,
+    fill: 'rgb(0,208,255)',
+    fontSize: 12,
+    gutterAdsorption: 4,
+    showGutterNum: 3,
+    gutterArr: [24, 48, 72]
+  }, {
+    showLine: false,
+    showLineNum: 2,
+    stroke: 'rgb(0,208,255)',
+    strokeWidth: 1,
+    adsorption: 5
+  })
+
+  referenceLine.changeLineStatus(true)
+  // referenceLine.changeGutterStatus(true)
+
+</script>
+
